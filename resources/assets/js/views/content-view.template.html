@@ -1,0 +1,11 @@
+<h1 v-if="contents">{{ contents.template.name }} Content</h1>
+
+<ol class="breadcrumb">
+  <li><a href="#/dashboard">Home</a></li>
+</ol>
+
+<editor></editor>
+
+<pre>
+{{ contents | json 4 }}
+</pre>

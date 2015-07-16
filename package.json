@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.8.8"
+  },
+  "dependencies": {
+    "bootstrap-sass": "^3.0.0",
+    "codemirror": "^5.4.0",
+    "director": "^1.2.8",
+    "laravel-elixir": "^2.0.0",
+    "marked": "^0.3.3",
+    "vue": "^0.12.6",
+    "vue-resource": "^0.1.4"
+  }
+}

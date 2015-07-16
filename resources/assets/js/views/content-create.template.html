@@ -1,0 +1,32 @@
+<h1>New Content</h1>
+<div v-if="!templates.length">Loading...</div>
+
+<form method="POST" v-on="submit: submitContent" v-if="templates.length">
+	<div class="form-group">
+		<label>Title</label>
+		<input type="text" class="form-control" name="title" v-model="newContent.title" />
+	</div>
+	<div class="form-group">
+		<label>Description</label>
+		<textarea name="description" class="form-control" rows="3" v-model="newContent.description"></textarea>
+	</div>
+	<div class="form-group">
+		<label>Category</label>
+		<select class="form-control" v-show="categories" v-model="newContent.category_id" name="category_id">
+			<option v-repeat="categories" value="{{id}}">
+				{{ name }}
+			</option>
+		</select>
+	</div>
+	<div class="form-group" v-repeat="templates">
+		<input type="radio" v-model="newContent.template_id" name="template_id" value="{{id}}" />
+		<label>{{ name }}</label> {{ description }}<br />
+	</div>
+	<div class="form-group">
+		<button class="btn btn-default">Create Content</button>
+	</div>
+</form>
+
+<pre>
+{{ newContent | json 4 }}
+</pre>
