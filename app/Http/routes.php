@@ -29,7 +29,9 @@ Route::post('password/reset/{token}', 'Auth\PasswordController@postReset');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function()
 {
     Route::get('/', function () {
-        return view('admin');
+    	$user = Auth::user();
+		$token = JWTAuth::fromUser($user);
+        return view('admin', compact('token'));
     });
 });
 

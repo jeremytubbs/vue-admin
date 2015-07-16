@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 use App\Content;
 use App\Template;
@@ -22,19 +24,6 @@ class ContentsController extends Controller
         $contents = Content::with('category', 'template')->get();
         return count($contents) > 0 ? $contents : '';
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    // public function store(Request $request)
-    // {
-    //     $content = new Content();
-    //     $content->slug = $request->get('title');
-    //     $content->fill($request);
-    //     $content->save();
-    // }
 
     /**
      * Display the specified resource.

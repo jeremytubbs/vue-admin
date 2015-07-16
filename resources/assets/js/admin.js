@@ -1,7 +1,8 @@
 var Vue = require('vue')
 var Resource = require('vue-resource')
 Vue.use(Resource)
-Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+//Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+Vue.http.headers.common['Authorization'] = 'Bearer '+ document.querySelector('#jwt').getAttribute('content');
 var Router = require('director').Router
 var app = new Vue(require('./app.js'))
 var router = new Router()

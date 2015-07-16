@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta id="token" content="{{ csrf_token() }}">
+    <meta id="jwt" content="{{ $token }}">
+    {{-- <meta id="token" content="{{ csrf_token() }}"> --}}
     <title>Radium</title>
     <link rel="stylesheet" href="/css/admin.css">
 </head>
