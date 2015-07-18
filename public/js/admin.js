@@ -22230,11 +22230,37 @@ module.exports = '<div class="form-group">\n	<textarea id="vueEditor" v-model="i
 'use strict';
 
 module.exports = {
-    template: require('./file-manager.template.html')
+  template: require('./file-manager.template.html'),
+
+  props: ['params'],
+
+  data: function data() {
+    return {
+      params: {
+        contentId: null
+      },
+      file: null
+    };
+  },
+
+  methods: {
+    submitFile: function submitFile(e) {
+      e.preventDefault();
+      var files = this.$$.upload.files;
+      console.log(files);
+      var data = new FormData();
+      data.append('file', files[0]);
+      this.$http.post('/admin/api/upload/' + this.params.contentId, data, function (data, status, request) {
+        console.log(data);
+      }).error(function (data, status, request) {
+        console.log(data);
+      });
+    }
+  }
 };
 
 },{"./file-manager.template.html":85}],85:[function(require,module,exports){
-module.exports = '<h1>Files</h1>';
+module.exports = '<h1>Upload</h1>\n<form method="POST" v-on="submit: submitFile" enctype="multipart/form-data">\n	<div class="form-group">\n		<input v-el="upload" type="file" name="upload" id="upload" class="form-control" v-model="file" />\n	</div>\n	<div class="form-group">\n		<button class="btn btn-default">Upload</button>\n	</div>\n</form>\n\n<pre>\n{{ params | json 4 }}\n</pre>';
 },{}],86:[function(require,module,exports){
 'use strict';
 
@@ -22323,7 +22349,7 @@ module.exports = {
 };
 
 },{"../components/editor":82,"../components/file-manager":84,"./content-view.template.html":89}],89:[function(require,module,exports){
-module.exports = '<h1 v-if="contents">{{ contents.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<editor params="{{params}}"></editor>\n\n<pre>\n{{ contents | json 4 }}\n</pre>\n';
+module.exports = '<h1 v-if="contents">{{ contents.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre>\n{{ contents | json 4 }}\n</pre>\n';
 },{}],90:[function(require,module,exports){
 'use strict';
 

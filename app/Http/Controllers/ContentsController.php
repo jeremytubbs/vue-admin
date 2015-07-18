@@ -22,9 +22,6 @@ class ContentsController extends Controller
     public function index()
     {
         $contents = Content::with('category', 'template')->get();
-        // // $contents = \JWTAuth::parseToken();
-        // $payload = JWTAuth::parseToken()->getPayload();
-        // return $payload['group'];
         return count($contents) > 0 ? $contents : '';
     }
 
