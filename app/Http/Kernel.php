@@ -32,5 +32,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'jwt.admin' => \App\Http\Middleware\GetGroupFromToken::class,
     ];
 }

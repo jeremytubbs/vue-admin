@@ -4,7 +4,6 @@
 var Vue = require('vue');
 var Resource = require('vue-resource');
 Vue.use(Resource);
-//Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
 Vue.http.headers.common['Authorization'] = 'Bearer ' + document.querySelector('#jwt').getAttribute('content');
 var Router = require('director').Router;
 var app = new Vue(require('./app.js'));
@@ -22186,8 +22185,13 @@ module.exports = {
 module.exports = {
   template: require('./editor.template.html'),
 
+  props: ['params'],
+
   data: function data() {
     return {
+      params: {
+        contentId: null
+      },
       input: '# hello',
       preview: false
     };
@@ -22205,12 +22209,17 @@ module.exports = {
       mode: 'markdown',
       lineNumbers: true
     });
+    this.getFile();
   },
 
   methods: {
     showPreview: function showPreview() {
       this.preview = !this.preview;
       this.input = this.editor.getValue();
+    },
+
+    getFile: function getFile() {
+      console.log(this.params.contentId);
     }
   }
 };
@@ -22314,7 +22323,7 @@ module.exports = {
 };
 
 },{"../components/editor":82,"../components/file-manager":84,"./content-view.template.html":89}],89:[function(require,module,exports){
-module.exports = '<h1 v-if="contents">{{ contents.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<editor></editor>\n\n<pre>\n{{ contents | json 4 }}\n</pre>';
+module.exports = '<h1 v-if="contents">{{ contents.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<editor params="{{params}}"></editor>\n\n<pre>\n{{ contents | json 4 }}\n</pre>\n';
 },{}],90:[function(require,module,exports){
 'use strict';
 

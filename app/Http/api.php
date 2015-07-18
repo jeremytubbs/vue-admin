@@ -2,7 +2,6 @@
 
 use App\Content;
 use App\Template;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 
 Route::get('api/authenticate', ['middleware' => ['auth', 'admin'], function() {
@@ -26,7 +25,7 @@ Route::get('api/authenticate', ['middleware' => ['auth', 'admin'], function() {
 
 
 // api for admin pages
-Route::group(['prefix' => 'api', 'middleware' => ['jwt.auth']], function()
+Route::group(['prefix' => 'api', 'middleware' => ['jwt.auth', 'jwt.admin']], function()
 {
     Route::get('content', 'ContentsController@index');
 

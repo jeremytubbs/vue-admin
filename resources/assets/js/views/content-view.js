@@ -10,7 +10,7 @@ module.exports = {
       params: {
         contentId: null
       },
-      contents: ''
+      contents: '',
     }
   },
 

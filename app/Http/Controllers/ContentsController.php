@@ -22,6 +22,9 @@ class ContentsController extends Controller
     public function index()
     {
         $contents = Content::with('category', 'template')->get();
+        // // $contents = \JWTAuth::parseToken();
+        // $payload = JWTAuth::parseToken()->getPayload();
+        // return $payload['group'];
         return count($contents) > 0 ? $contents : '';
     }
 
@@ -33,8 +36,11 @@ class ContentsController extends Controller
      */
     public function show($id)
     {
-        $content = Content::with('template')->find($id);
-        return $content;
+        $contents = Content::with('template')->find($id);
+        // $contentDir = base_path().'/resources/content/'.$id;
+        // $markdown = \File::get($contentDir.'/post.md');
+        // return response()->json(compact('contents', 'markdown'));
+        return $contents;
     }
 
     /**

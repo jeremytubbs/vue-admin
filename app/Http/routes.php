@@ -26,14 +26,17 @@ Route::post('password/forgot', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', ['as' => 'auth.reset', 'uses' => 'Auth\PasswordController@getReset']);
 Route::post('password/reset/{token}', 'Auth\PasswordController@postReset');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function()
-{
-    Route::get('/', function () {
-    	$user = Auth::user();
-		$token = JWTAuth::fromUser($user);
-        return view('admin', compact('token'));
-    });
-});
+
+Route::get('admin', ['middleware' => ['auth', 'admin'], function () {
+	$user = Auth::user();
+	$user = array_except($user, ['created_at', 'updated_at']);
+	if (Auth::user()->hasGroup('admin')) {
+		$customClaims = ['group' => 'admin'];
+    	$token = JWTAuth::fromUser($user, $customClaims);
+	}
+    return view('admin', compact('token'));
+}]);
+
 
 Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoriesController@index']);
 Route::get('categories/{slug}', ['as' => 'categories.show', 'uses' => 'CategoriesController@show']);
