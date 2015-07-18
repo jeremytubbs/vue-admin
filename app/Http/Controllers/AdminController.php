@@ -7,15 +7,27 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Content;
+use App\Template;
+
 class AdminController extends Controller
 {
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
+    public function postContent(Request $request)
+    {
+        $content = new Content();
+        $content->slug = $request->input('title');
+        $content->fill($request->all());
+        $content->save();
+        $template = Template::find($request->input('template_id'));
+        $base_path = base_path();
+        // make directory for content
+        $contentDir = $base_path.'/resources/content/'.$content->id;
+        \File::makeDirectory($contentDir);
+        $templateDir = $base_path.'/resources/templates/'.$template->slug;
+        \File::copyDirectory($templateDir, $contentDir);
+    }
+
     public function postUpload($id, Request $request)
     {
         if ($request->hasFile('file'))

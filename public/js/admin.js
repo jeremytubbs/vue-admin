@@ -22300,7 +22300,11 @@ module.exports = {
     submitContent: function submitContent(e) {
       e.preventDefault();
       var newContent = this.newContent;
-      this.$http.post('api/content', newContent);
+      this.$http.post('admin/api/content', newContent, function (data, status, request) {
+        console.log(data);
+      }).error(function (data, status, request) {
+        console.log(data);
+      });
     }
   }
 };
