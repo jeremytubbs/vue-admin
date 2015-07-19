@@ -22250,6 +22250,7 @@ module.exports = {
       console.log(files);
       var data = new FormData();
       data.append('file', files[0]);
+      // post file for upload
       this.$http.post('/admin/api/upload/' + this.params.contentId, data, function (data, status, request) {
         console.log(data);
       }).error(function (data, status, request) {

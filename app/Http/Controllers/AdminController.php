@@ -28,12 +28,18 @@ class AdminController extends Controller
         \File::copyDirectory($templateDir, $contentDir);
     }
 
+    public function postEditor(Request $request)
+    {
+        //
+    }
+
     public function postUpload($id, Request $request)
     {
         if ($request->hasFile('file'))
         {
             $file = $request->file('file');
-            $destinationPath = 'uploads/covers';
+            $base_path = base_path();
+            $destinationPath = $base_path.'/resources/content/'.$id;
             $filename = $file->getClientOriginalName();
             $request->file('file')->move($destinationPath, $filename);
             $src = '/' . $destinationPath . '/' . $filename;

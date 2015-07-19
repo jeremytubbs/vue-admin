@@ -13,8 +13,11 @@ Route::get('admin', ['middleware' => ['auth', 'admin'], function () {
 // api for admin pages
 Route::group(['prefix' => 'admin/api', 'middleware' => ['jwt.auth', 'jwt.admin']], function()
 {
-	// route used by content-create.js
-	Route::post('content', 'AdminController@postContent');
-	// route used by file-manager.js
-	Route::post('upload/{id}', 'AdminController@postUpload');
+    // route used by content-create.js
+    Route::post('content', 'AdminController@postContent');
+    // route used by editor.js
+    Route::post('content/{id}', 'AdminController@postEditor');
+    // route used by file-manager.js
+    Route::post('upload/{id}', 'AdminController@postUpload');
+
 });
