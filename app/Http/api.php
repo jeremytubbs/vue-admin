@@ -25,12 +25,9 @@ Route::get('api/authenticate', ['middleware' => ['auth', 'admin'], function() {
 
 
 // api for admin pages
-Route::group(['prefix' => 'api', 'middleware' => ['jwt.auth']], function()
+Route::group(['prefix' => 'api', 'middleware' => 'jwt.auth'], function()
 {
     Route::get('contents', 'ContentsController@index');
-
-    // Route::post('content', 'ContentsController@store');
-    // Route::get('content/{id}', 'ContentsController@show');
     Route::get('categories', 'CategoriesController@index');
     Route::get('templates', 'TemplatesController@index');
 });

@@ -13,6 +13,15 @@ use App\Template;
 class AdminController extends Controller
 {
 
+    protected $disk, $contentDir, $templateDir;
+
+    public function __construct()
+    {
+        $this->disk = \Storage::disk('local');
+        $this->contentDir = '/resources/content/';
+        $this->templateDir = '/resources/templates/';
+    }
+
     public function postContent(Request $request)
     {
         $content = new Content();
@@ -22,17 +31,15 @@ class AdminController extends Controller
         $template = Template::find($request->input('template_id'));
         $base_path = base_path();
         // make directory for content
-        $contentDir = $base_path.'/resources/content/'.$content->id;
+        $contentDir = base_path(). $this->contentDir . $content->id;
         \File::makeDirectory($contentDir);
-        $templateDir = $base_path.'/resources/templates/'.$template->slug;
+        $templateDir = base_path() . $this->templateDir . $template->slug;
         \File::copyDirectory($templateDir, $contentDir);
     }
 
     public function getContent($id)
     {
-        $base_path = base_path();
-        $contentDir = base_path().'/resources/content/'.$id;
-        $files = \File::files($contentDir);
+        $files = $this->disk->files($this->contentDir . $id);
         $content = Content::with('template')->find($id);
         return response()->json(compact('content', 'files'));
     }
@@ -47,8 +54,7 @@ class AdminController extends Controller
         if ($request->hasFile('file'))
         {
             $file = $request->file('file');
-            $base_path = base_path();
-            $contentDir = $base_path.'/resources/content/'.$id;
+            $contentDir = base_path(). $this->contentDir . $id;
             $filename = $file->getClientOriginalName();
             $request->file('file')->move($contentDir, $filename);
             $src = '/' . $contentDir . '/' . $filename;
