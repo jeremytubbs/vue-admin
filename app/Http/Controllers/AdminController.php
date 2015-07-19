@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->disk = \Storage::disk('local');
-        $this->contentDir = '/resources/content/';
+        $this->contentDir = '/public/content/';
         $this->templateDir = '/resources/templates/';
     }
 

@@ -25295,11 +25295,12 @@ module.exports = {
   components: {
     'dashboard': require('./views/dashboard'),
     'content-create': require('./views/content-create'),
-    'content-view': require('./views/content-view')
+    'content-view': require('./views/content-view'),
+    'content-settings': require('./views/content-settings')
   }
 };
 
-},{"./views/content-create":87,"./views/content-view":89,"./views/dashboard":91}],83:[function(require,module,exports){
+},{"./views/content-create":87,"./views/content-settings":89,"./views/content-view":91,"./views/dashboard":93}],83:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25453,6 +25454,15 @@ module.exports = '<h1>New Content</h1>\n<div v-if="!templates.length">Loading...
 'use strict';
 
 module.exports = {
+  template: require('./content-settings.template.html')
+};
+
+},{"./content-settings.template.html":90}],90:[function(require,module,exports){
+module.exports = '<h1>Content Settings</h1>\n';
+},{}],91:[function(require,module,exports){
+'use strict';
+
+module.exports = {
   template: require('./content-view.template.html'),
 
   replace: true,
@@ -25493,9 +25503,9 @@ module.exports = {
   }
 };
 
-},{"../components/editor":83,"../components/file-manager":85,"./content-view.template.html":90}],90:[function(require,module,exports){
-module.exports = '<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre v-if="contents">\n{{ contents | json 4 }}\n</pre>';
-},{}],91:[function(require,module,exports){
+},{"../components/editor":83,"../components/file-manager":85,"./content-view.template.html":92}],92:[function(require,module,exports){
+module.exports = '<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>\n<a href="#/content/{{ params.contentId }}/settings">settings</a>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre v-if="contents">\n{{ contents | json 4 }}\n</pre>';
+},{}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25528,6 +25538,6 @@ module.exports = {
   }
 };
 
-},{"./dashboard.template.html":92}],92:[function(require,module,exports){
+},{"./dashboard.template.html":94}],94:[function(require,module,exports){
 module.exports = '<h1>Home</h1>\n\n<div class="form-group">\n	<a href="#/new-content" class="btn btn-default">New Content</a>\n</div>\n\n<div v-show="! contents">\n	No Content\n</div>\n\n<div v-show="contents">\n	<div class="list-group">\n		<a href="#/content/{{id}}" class="list-group-item" v-repeat="contents">\n			{{ title }} - {{ created_at | humanize }}\n		</a>\n	</div>\n</div>\n\n<pre>\n{{ contents | json 4 }}\n</pre>';
 },{}]},{},[1]);

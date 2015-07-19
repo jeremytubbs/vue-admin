@@ -22,9 +22,10 @@ class CreateContentsTable extends Migration
             $table->text('description')->nullable();
             $table->longText('markdown')->nullable();
             $table->longText('html')->nullable();
-            $table->string('preview_image')->nullable();
+            $table->string('primary_image')->nullable();
             $table->boolean('featured')->default(0);
             $table->boolean('published')->default(0);
+            $table->boolean('published_at')->nullable();
             $table->timestamps();
         });
     }
