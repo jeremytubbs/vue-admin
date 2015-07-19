@@ -16,7 +16,6 @@ module.exports = {
     submitFile: function(e) {
       e.preventDefault()
       var files = this.$$.upload.files
-      console.log(files)
       var data = new FormData()
       data.append('file', files[0])
       // post file for upload

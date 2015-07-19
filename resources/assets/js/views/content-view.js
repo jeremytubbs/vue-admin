@@ -8,7 +8,8 @@ module.exports = {
   data: function () {
     return {
       params: {
-        contentId: null
+        contentId: null,
+        filename: null
       },
       contents: '',
     }
@@ -29,7 +30,7 @@ module.exports = {
 
   methods: {
     fetchData: function() {
-      this.$http.get('/api/content/'+this.params.contentId, function(contents) {
+      this.$http.get('admin/api/content/'+this.params.contentId, function(contents) {
         this.contents = contents
       })
     },

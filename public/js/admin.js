@@ -22168,7 +22168,8 @@ module.exports = {
   data: {
     currentView: '',
     params: {
-      contentId: null
+      contentId: null,
+      filename: null
     }
   },
 
@@ -22190,7 +22191,8 @@ module.exports = {
   data: function data() {
     return {
       params: {
-        contentId: null
+        contentId: null,
+        filename: null
       },
       input: '# hello',
       preview: false
@@ -22205,11 +22207,11 @@ module.exports = {
     require('codemirror/addon/edit/continuelist');
     require('codemirror//mode/markdown/markdown');
     this.CodeMirror = require('codemirror/lib/codemirror');
-    this.editor = this.CodeMirror.fromTextArea(document.getElementById('vueEditor'), {
-      mode: 'markdown',
-      lineNumbers: true
-    });
     this.getFile();
+  },
+
+  watch: {
+    'params.contentId': 'getFile'
   },
 
   methods: {
@@ -22219,7 +22221,11 @@ module.exports = {
     },
 
     getFile: function getFile() {
-      console.log(this.params.contentId);
+      console.log(this.params.filename);
+      this.editor = this.CodeMirror.fromTextArea(document.getElementById('vueEditor'), {
+        mode: 'markdown',
+        lineNumbers: true
+      });
     }
   }
 };
@@ -22247,7 +22253,6 @@ module.exports = {
     submitFile: function submitFile(e) {
       e.preventDefault();
       var files = this.$$.upload.files;
-      console.log(files);
       var data = new FormData();
       data.append('file', files[0]);
       // post file for upload
@@ -22289,11 +22294,11 @@ module.exports = {
 
   methods: {
     fetchData: function fetchData() {
-      this.$http.get('/api/categories', function (categories) {
+      this.$http.get('api/categories', function (categories) {
         this.categories = categories;
         this.newContent.category_id = categories[0].id;
       });
-      this.$http.get('/api/templates', function (templates) {
+      this.$http.get('api/templates', function (templates) {
         this.templates = templates;
         this.newContent.template_id = templates[0].id;
       });
@@ -22325,7 +22330,8 @@ module.exports = {
   data: function data() {
     return {
       params: {
-        contentId: null
+        contentId: null,
+        filename: null
       },
       contents: ''
     };
@@ -22346,7 +22352,7 @@ module.exports = {
 
   methods: {
     fetchData: function fetchData() {
-      this.$http.get('/api/content/' + this.params.contentId, function (contents) {
+      this.$http.get('admin/api/content/' + this.params.contentId, function (contents) {
         this.contents = contents;
       });
     }
@@ -22354,7 +22360,7 @@ module.exports = {
 };
 
 },{"../components/editor":82,"../components/file-manager":84,"./content-view.template.html":89}],89:[function(require,module,exports){
-module.exports = '<h1 v-if="contents">{{ contents.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre>\n{{ contents | json 4 }}\n</pre>\n';
+module.exports = '<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre>\n{{ contents | json 4 }}\n</pre>\n';
 },{}],90:[function(require,module,exports){
 'use strict';
 
@@ -22375,7 +22381,7 @@ module.exports = {
 
   methods: {
     fetchContent: function fetchContent() {
-      this.$http.get('/api/content', function (content) {
+      this.$http.get('api/contents', function (content) {
         this.contents = content;
       });
     }

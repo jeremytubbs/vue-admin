@@ -6,7 +6,8 @@ module.exports = {
   data: function () {
     return {
       params: {
-        contentId: null
+        contentId: null,
+        filename: null
       },
       input: '# hello',
       preview: false
@@ -21,11 +22,11 @@ module.exports = {
     require('codemirror/addon/edit/continuelist')
     require('codemirror//mode/markdown/markdown')
     this.CodeMirror = require('codemirror/lib/codemirror')
-    this.editor = this.CodeMirror.fromTextArea(document.getElementById('vueEditor'), {
-      mode: 'markdown',
-      lineNumbers: true
-    })
     this.getFile();
+  },
+
+  watch: {
+    'params.contentId': 'getFile'
   },
 
   methods: {
@@ -35,7 +36,11 @@ module.exports = {
     },
 
     getFile: function() {
-      console.log(this.params.contentId)
+      console.log(this.params.filename)
+      this.editor = this.CodeMirror.fromTextArea(document.getElementById('vueEditor'), {
+        mode: 'markdown',
+        lineNumbers: true
+      })
     }
   }
 }

@@ -28,6 +28,15 @@ class AdminController extends Controller
         \File::copyDirectory($templateDir, $contentDir);
     }
 
+    public function getContent($id)
+    {
+        $base_path = base_path();
+        $contentDir = base_path().'/resources/content/'.$id;
+        $files = \File::files($contentDir);
+        $content = Content::with('template')->find($id);
+        return response()->json(compact('content', 'files'));
+    }
+
     public function postEditor(Request $request)
     {
         //
@@ -39,14 +48,14 @@ class AdminController extends Controller
         {
             $file = $request->file('file');
             $base_path = base_path();
-            $destinationPath = $base_path.'/resources/content/'.$id;
+            $contentDir = $base_path.'/resources/content/'.$id;
             $filename = $file->getClientOriginalName();
-            $request->file('file')->move($destinationPath, $filename);
-            $src = '/' . $destinationPath . '/' . $filename;
+            $request->file('file')->move($contentDir, $filename);
+            $src = '/' . $contentDir . '/' . $filename;
 
-            return \Response::json('success', 200);
+            return response()->json('success', 200);
         }
 
-        return \Response::json('error', 400);
+        return response()->json('error', 400);
     }
 }

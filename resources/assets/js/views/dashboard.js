@@ -15,7 +15,7 @@ module.exports = {
 
   methods: {
     fetchContent: function() {
-      this.$http.get('/api/content', function(content) {
+      this.$http.get('api/contents', function(content) {
         this.contents = content
       })
     },

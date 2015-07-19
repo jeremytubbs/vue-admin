@@ -22,11 +22,11 @@ module.exports = {
 
   methods: {
     fetchData: function() {
-      this.$http.get('/api/categories', function(categories) {
+      this.$http.get('api/categories', function(categories) {
         this.categories = categories
         this.newContent.category_id = categories[0].id
       })
-      this.$http.get('/api/templates', function(templates) {
+      this.$http.get('api/templates', function(templates) {
         this.templates = templates
         this.newContent.template_id = templates[0].id
       })

@@ -4,7 +4,8 @@ module.exports = {
   data: {
     currentView: '',
     params: {
-      contentId: null
+      contentId: null,
+      filename: null
     }
   },
 
