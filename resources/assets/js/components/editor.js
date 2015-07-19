@@ -36,7 +36,6 @@ module.exports = {
     },
 
     getFile: function() {
-      console.log(this.params.filename)
       this.editor = this.CodeMirror.fromTextArea(document.getElementById('vueEditor'), {
         mode: 'markdown',
         lineNumbers: true

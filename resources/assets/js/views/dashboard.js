@@ -9,6 +9,12 @@ module.exports = {
     }
   },
 
+  filters: {
+    humanize: function (value) {
+      return window.Moment(value).fromNow()
+    }
+  },
+
   ready: function() {
     this.fetchContent()
   },

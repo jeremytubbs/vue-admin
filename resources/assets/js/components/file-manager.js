@@ -6,13 +6,27 @@ module.exports = {
   data: function () {
     return {
       params: {
-        contentId: null
+        contentId: null,
+        files: null
       },
       file: null
     }
   },
 
+  // ready: function() {
+  //   console.log(this.params.files)
+  //   console.log(this.params.contentId)
+  // },
+
+  watch: {
+    'params.files': 'showList'
+  },
+
   methods: {
+    showList: function() {
+      console.log(this.params.files)
+    },
+
     submitFile: function(e) {
       e.preventDefault()
       var files = this.$$.upload.files

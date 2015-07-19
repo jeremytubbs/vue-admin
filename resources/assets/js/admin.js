@@ -1,3 +1,4 @@
+window.Moment = require('moment')
 var Vue = require('vue')
 var Resource = require('vue-resource')
 Vue.use(Resource)
@@ -16,6 +17,11 @@ router.on('/new-content', function () {
 
 router.on('/content/:id', function (id) {
   app.currentView = 'content-view'
+  app.params.contentId = id
+})
+
+router.on('/content/:id/settings', function (id) {
+  app.currentView = 'content-settings'
   app.params.contentId = id
 })
 

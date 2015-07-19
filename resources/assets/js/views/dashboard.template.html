@@ -11,7 +11,7 @@
 <div v-show="contents">
 	<div class="list-group">
 		<a href="#/content/{{id}}" class="list-group-item" v-repeat="contents">
-			{{ title }}
+			{{ title }} - {{ created_at | humanize }}
 		</a>
 	</div>
 </div>

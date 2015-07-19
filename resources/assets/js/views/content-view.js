@@ -9,7 +9,8 @@ module.exports = {
     return {
       params: {
         contentId: null,
-        filename: null
+        filename: null,
+        files: null
       },
       contents: '',
     }
@@ -32,6 +33,7 @@ module.exports = {
     fetchData: function() {
       this.$http.get('admin/api/content/'+this.params.contentId, function(contents) {
         this.contents = contents
+        this.params.files = contents.files
       })
     },
   }

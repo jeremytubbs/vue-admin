@@ -7,6 +7,6 @@
 <manager params="{{params}}"></manager>
 <editor params="{{params}}"></editor>
 
-<pre>
+<pre v-if="contents">
 {{ contents | json 4 }}
 </pre>

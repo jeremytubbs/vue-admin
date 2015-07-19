@@ -9,6 +9,7 @@
     "director": "^1.2.8",
     "laravel-elixir": "^2.0.0",
     "marked": "^0.3.3",
+    "moment": "^2.10.3",
     "vue": "^0.12.6",
     "vue-resource": "^0.1.4"
   }
