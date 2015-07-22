@@ -3,4 +3,4 @@
 /node_modules
 Homestead.yaml
 .env
-/resources/content
+/public/content

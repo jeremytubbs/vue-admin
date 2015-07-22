@@ -25300,7 +25300,7 @@ module.exports = {
   }
 };
 
-},{"./views/content-create":87,"./views/content-settings":89,"./views/content-view":91,"./views/dashboard":93}],83:[function(require,module,exports){
+},{"./views/content-create":89,"./views/content-settings":91,"./views/content-view":93,"./views/dashboard":95}],83:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25404,6 +25404,15 @@ module.exports = '<h1>Upload</h1>\n<form method="POST" v-on="submit: submitFile"
 'use strict';
 
 module.exports = {
+  template: require('./navbar.template.html')
+};
+
+},{"./navbar.template.html":88}],88:[function(require,module,exports){
+module.exports = '<!-- Fixed navbar -->\n<nav class="navbar navbar-default navbar-fixed-top">\n  <div class="container">\n    <div class="navbar-header">\n      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">\n        <span class="sr-only">Toggle navigation</span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="navbar-brand" href="#">Radium</a>\n    </div>\n    <div id="navbar" class="navbar-collapse collapse">\n      <ul class="nav navbar-nav">\n        <li><a href="#/dashboard">Home</a></li>\n        <li><a href="#/new-content">New Content</a></li>\n      </ul>\n      <ul class="nav navbar-nav navbar-right">\n        <li><a href="/auth/logout">Logout</a></li>\n      </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n\n<style type="text/css">\nbody {\n  padding-top: 50px;\n}\n</style>';
+},{}],89:[function(require,module,exports){
+'use strict';
+
+module.exports = {
   template: require('./content-create.template.html'),
 
   replace: true,
@@ -25448,18 +25457,18 @@ module.exports = {
   }
 };
 
-},{"./content-create.template.html":88}],88:[function(require,module,exports){
+},{"./content-create.template.html":90}],90:[function(require,module,exports){
 module.exports = '<h1>New Content</h1>\n<div v-if="!templates.length">Loading...</div>\n\n<form method="POST" v-on="submit: submitContent" v-if="templates.length">\n	<div class="form-group">\n		<label>Title</label>\n		<input type="text" class="form-control" name="title" v-model="newContent.title" />\n	</div>\n	<div class="form-group">\n		<label>Description</label>\n		<textarea name="description" class="form-control" rows="3" v-model="newContent.description"></textarea>\n	</div>\n	<div class="form-group">\n		<label>Category</label>\n		<select class="form-control" v-show="categories" v-model="newContent.category_id" name="category_id">\n			<option v-repeat="categories" value="{{id}}">\n				{{ name }}\n			</option>\n		</select>\n	</div>\n	<div class="form-group" v-repeat="templates">\n		<input type="radio" v-model="newContent.template_id" name="template_id" value="{{id}}" />\n		<label>{{ name }}</label> {{ description }}<br />\n	</div>\n	<div class="form-group">\n		<button class="btn btn-default">Create Content</button>\n	</div>\n</form>\n\n<pre>\n{{ newContent | json 4 }}\n</pre>\n';
-},{}],89:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 'use strict';
 
 module.exports = {
   template: require('./content-settings.template.html')
 };
 
-},{"./content-settings.template.html":90}],90:[function(require,module,exports){
+},{"./content-settings.template.html":92}],92:[function(require,module,exports){
 module.exports = '<h1>Content Settings</h1>\n';
-},{}],91:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25503,9 +25512,9 @@ module.exports = {
   }
 };
 
-},{"../components/editor":83,"../components/file-manager":85,"./content-view.template.html":92}],92:[function(require,module,exports){
+},{"../components/editor":83,"../components/file-manager":85,"./content-view.template.html":94}],94:[function(require,module,exports){
 module.exports = '<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>\n<a href="#/content/{{ params.contentId }}/settings">settings</a>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre v-if="contents">\n{{ contents | json 4 }}\n</pre>';
-},{}],93:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25525,6 +25534,10 @@ module.exports = {
     }
   },
 
+  components: {
+    navbar: require('../components/navbar')
+  },
+
   ready: function ready() {
     this.fetchContent();
   },
@@ -25538,6 +25551,6 @@ module.exports = {
   }
 };
 
-},{"./dashboard.template.html":94}],94:[function(require,module,exports){
-module.exports = '<h1>Home</h1>\n\n<div class="form-group">\n	<a href="#/new-content" class="btn btn-default">New Content</a>\n</div>\n\n<div v-show="! contents">\n	No Content\n</div>\n\n<div v-show="contents">\n	<div class="list-group">\n		<a href="#/content/{{id}}" class="list-group-item" v-repeat="contents">\n			{{ title }} - {{ created_at | humanize }}\n		</a>\n	</div>\n</div>\n\n<pre>\n{{ contents | json 4 }}\n</pre>';
+},{"../components/navbar":87,"./dashboard.template.html":96}],96:[function(require,module,exports){
+module.exports = '<navbar></navbar>\n<h1>Home</h1>\n\n<div class="form-group">\n	<a href="#/new-content" class="btn btn-default">New Content</a>\n</div>\n\n<div v-show="! contents">\n	No Content\n</div>\n\n<div v-show="contents">\n	<div class="list-group">\n		<a href="#/content/{{id}}" class="list-group-item" v-repeat="contents">\n			<h4>{{ title }}</h4>\n			<span v-if="! published" class="badge">Unpublished</span>\n			<p v-if="published">\n				<span>Published {{ created_at | humanize }}</span>\n			</p>\n			<p v-if="! published">\n				<span>Created {{ created_at | humanize }}</span>\n			</p>\n		</a>\n	</div>\n</div>\n\n<pre>\n{{ contents | json 4 }}\n</pre>';
 },{}]},{},[1]);

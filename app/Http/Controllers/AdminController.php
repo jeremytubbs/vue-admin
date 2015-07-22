@@ -29,10 +29,13 @@ class AdminController extends Controller
         $content->fill($request->all());
         $content->save();
         $template = Template::find($request->input('template_id'));
-        $base_path = base_path();
         // make directory for content
-        $contentDir = base_path(). $this->contentDir . $content->id;
-        \File::makeDirectory($contentDir);
+        $contentDir = base_path() . $this->contentDir;
+        if(! \File::exists($contentDir)) {
+            \File::makeDirectory($contentDir, 755);
+        }
+        $contentDir = $contentDir . $content->id;
+        \File::makeDirectory($contentDir, 755);
         $templateDir = base_path() . $this->templateDir . $template->slug;
         \File::copyDirectory($templateDir, $contentDir);
     }

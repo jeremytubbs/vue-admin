@@ -1,3 +1,4 @@
+<navbar></navbar>
 <h1>Home</h1>
 
 <div class="form-group">
@@ -11,7 +12,14 @@
 <div v-show="contents">
 	<div class="list-group">
 		<a href="#/content/{{id}}" class="list-group-item" v-repeat="contents">
-			{{ title }} - {{ created_at | humanize }}
+			<h4>{{ title }}</h4>
+			<span v-if="! published" class="badge">Unpublished</span>
+			<p v-if="published">
+				<span>Published {{ created_at | humanize }}</span>
+			</p>
+			<p v-if="! published">
+				<span>Created {{ created_at | humanize }}</span>
+			</p>
 		</a>
 	</div>
 </div>

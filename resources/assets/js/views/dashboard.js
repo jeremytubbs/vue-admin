@@ -15,6 +15,10 @@ module.exports = {
     }
   },
 
+  components: {
+    navbar: require('../components/navbar')
+  },
+
   ready: function() {
     this.fetchContent()
   },
