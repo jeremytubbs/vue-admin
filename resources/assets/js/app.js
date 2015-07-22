@@ -5,6 +5,7 @@ module.exports = {
     currentView: '',
     params: {
       contentId: null,
+      currentView: null,
       filename: null,
       files: null
     }

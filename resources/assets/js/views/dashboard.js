@@ -3,8 +3,16 @@ module.exports = {
 
   replace: true,
 
+  props: ['params'],
+
   data: function () {
     return {
+      params: {
+        contentId: null,
+        contentView: null,
+        filename: null,
+        files: null
+      },
       contents: ''
     }
   },

@@ -3,6 +3,8 @@ module.exports = {
 
   replace: true,
 
+  props: ['params'],
+
   data: function () {
     return {
       categories: '',
@@ -12,8 +14,15 @@ module.exports = {
         category_id: null,
         title: '',
         description: ''
+      },
+      params: {
+        currentView: null
       }
     }
+  },
+
+  components: {
+    navbar: require('../components/navbar')
   },
 
   ready: function() {
