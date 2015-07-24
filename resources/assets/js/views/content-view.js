@@ -9,6 +9,7 @@ module.exports = {
     return {
       params: {
         contentId: null,
+        contentView: null,
         filename: null,
         files: null
       },
@@ -17,6 +18,7 @@ module.exports = {
   },
 
   components: {
+    navbar: require('../components/navbar'),
     manager: require('../components/file-manager'),
     editor: require('../components/editor')
   },

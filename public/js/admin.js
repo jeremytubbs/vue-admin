@@ -25426,7 +25426,7 @@ module.exports = {
 };
 
 },{"./navbar.template.html":88}],88:[function(require,module,exports){
-module.exports = '<!-- Fixed navbar -->\n<nav class="navbar navbar-default navbar-fixed-top">\n  <div class="container">\n    <div class="navbar-header">\n      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">\n        <span class="sr-only">Toggle navigation</span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="navbar-brand" href="#">Radium</a>\n    </div>\n    <div id="navbar" class="navbar-collapse collapse">\n      <ul class="nav navbar-nav">\n        <li v-if="params.currentView != \'dashboard\'"><a href="#/dashboard">Dashboard</a></li>\n        <li v-if="params.currentView != \'content-create\'"><a href="#/new-content">New Content</a></li>\n      </ul>\n      <ul class="nav navbar-nav navbar-right">\n        <li><a href="/auth/logout">Logout</a></li>\n      </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n\n<style type="text/css">\nbody {\n  padding-top: 50px;\n}\n</style>';
+module.exports = '<!-- Fixed navbar -->\n<nav class="navbar navbar-default navbar-fixed-top">\n  <div class="container">\n    <div class="navbar-header">\n      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">\n        <span class="sr-only">Toggle navigation</span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="navbar-brand" href="/">Radium</a>\n    </div>\n    <div id="navbar" class="navbar-collapse collapse">\n      <ul class="nav navbar-nav">\n        <li v-if="params.currentView != \'dashboard\'"><a href="#/dashboard">Dashboard</a></li>\n        <li v-if="params.currentView != \'content-create\'"><a href="#/new-content">New Content</a></li>\n      </ul>\n      <ul class="nav navbar-nav navbar-right">\n        <li><a href="/auth/logout">Logout</a></li>\n      </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n\n<style type="text/css">\nbody {\n  padding-top: 50px;\n}\n</style>';
 },{}],89:[function(require,module,exports){
 'use strict';
 
@@ -25490,11 +25490,25 @@ module.exports = '<navbar params="{{params}}"></navbar>\n<h1>New Content</h1>\n<
 'use strict';
 
 module.exports = {
-  template: require('./content-settings.template.html')
+  template: require('./content-settings.template.html'),
+  props: ['params'],
+
+  data: function data() {
+    return {
+      params: {
+        contentId: null,
+        contentView: null
+      }
+    };
+  },
+
+  components: {
+    navbar: require('../components/navbar')
+  }
 };
 
-},{"./content-settings.template.html":92}],92:[function(require,module,exports){
-module.exports = '<h1>Content Settings</h1>\n';
+},{"../components/navbar":87,"./content-settings.template.html":92}],92:[function(require,module,exports){
+module.exports = '<navbar params="{{params}}"></navbar>\n<h1>Content Settings</h1>\n';
 },{}],93:[function(require,module,exports){
 'use strict';
 
@@ -25509,6 +25523,7 @@ module.exports = {
     return {
       params: {
         contentId: null,
+        contentView: null,
         filename: null,
         files: null
       },
@@ -25517,6 +25532,7 @@ module.exports = {
   },
 
   components: {
+    navbar: require('../components/navbar'),
     manager: require('../components/file-manager'),
     editor: require('../components/editor')
   },
@@ -25539,8 +25555,8 @@ module.exports = {
   }
 };
 
-},{"../components/editor":83,"../components/file-manager":85,"./content-view.template.html":94}],94:[function(require,module,exports){
-module.exports = '<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>\n<a href="#/content/{{ params.contentId }}/settings">settings</a>\n\n<ol class="breadcrumb">\n  <li><a href="#/dashboard">Home</a></li>\n</ol>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre v-if="contents">\n{{ contents | json 4 }}\n</pre>';
+},{"../components/editor":83,"../components/file-manager":85,"../components/navbar":87,"./content-view.template.html":94}],94:[function(require,module,exports){
+module.exports = '<navbar params="{{params}}"></navbar>\n\n<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>\n<a href="#/content/{{ params.contentId }}/settings">settings</a>\n\n<manager params="{{params}}"></manager>\n<editor params="{{params}}"></editor>\n\n<pre v-if="contents">\n{{ contents | json 4 }}\n</pre>';
 },{}],95:[function(require,module,exports){
 'use strict';
 
@@ -25554,10 +25570,7 @@ module.exports = {
   data: function data() {
     return {
       params: {
-        contentId: null,
-        contentView: null,
-        filename: null,
-        files: null
+        contentView: null
       },
       contents: ''
     };

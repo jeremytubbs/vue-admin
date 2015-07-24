@@ -1,9 +1,7 @@
+<navbar params="{{params}}"></navbar>
+
 <h1 v-if="contents">{{ contents.content.template.name }} Content</h1>
 <a href="#/content/{{ params.contentId }}/settings">settings</a>
-
-<ol class="breadcrumb">
-  <li><a href="#/dashboard">Home</a></li>
-</ol>
 
 <manager params="{{params}}"></manager>
 <editor params="{{params}}"></editor>
