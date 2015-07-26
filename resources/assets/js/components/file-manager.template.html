@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="list-group">
-		<a href="" class="list-group-item" v-repeat="params.contents.files">
+		<a href="#/content/{{params.contentId}}/{{ $value | getFilename }}/editor" class="list-group-item" v-repeat="params.contents.files">
 			{{ $value | getFileExt }} {{ $value | getFilename }}
 		</a>
 	</div>

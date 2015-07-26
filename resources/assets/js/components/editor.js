@@ -6,7 +6,9 @@ module.exports = {
   data: function () {
     return {
       params: {
+        currentView: null,
         contentId: null,
+        contents: null,
         filename: null
       },
       input: '# hello',

@@ -3,16 +3,21 @@ module.exports = {
 
   replace: true,
 
+  props: ['params'],
+
   data: function () {
     return {
       params: {
         currentView: null,
         contentId: null,
-        filename: null,
-        files: null
-      },
-      contents: '',
+        contents: null,
+        filename: null
+      }
     }
+  },
+
+  components: {
+    editor: require('../components/editor')
   }
 
 }
