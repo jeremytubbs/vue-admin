@@ -28,19 +28,19 @@ router.on('/content/create', function () {
 
 router.on('/content/:id', function (id) {
   app.currentView = 'content-show'
-  app.params.contentId = id
+  app.params.contentId = (id != app.params.contentId) ? id : app.params.contentId
   app.params.currentView = 'content-show'
 })
 
 router.on('/content/:id/settings', function (id) {
   app.currentView = 'content-settings'
-  app.params.contentId = id
+  app.params.contentId = (id != app.params.contentId) ? id : app.params.contentId
   app.params.currentView = 'content-settings'
 })
 
 router.on('/content/:id/:file/editor/', function (id, file) {
   app.currentView = 'content-editor'
-  app.params.contentId = id
+  app.params.contentId = (id != app.params.contentId) ? id : app.params.contentId
   app.params.currentView = 'content-editor'
   app.params.filename = file
 })
