@@ -1,4 +1,10 @@
-<h1>Upload</h1>
+<div v-show="params.files">
+	<div class="list-group">
+		<a href="" class="list-group-item" v-repeat="params.files">
+			{{ $value }}
+		</a>
+	</div>
+</div>
 <form method="POST" v-on="submit: submitFile" enctype="multipart/form-data">
 	<div class="form-group">
 		<input v-el="upload" type="file" name="upload" id="upload" class="form-control" v-model="file" />

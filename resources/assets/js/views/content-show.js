@@ -1,5 +1,5 @@
 module.exports = {
-  template: require('./content-view.template.html'),
+  template: require('./content-show.template.html'),
 
   replace: true,
 
@@ -9,7 +9,7 @@ module.exports = {
     return {
       params: {
         contentId: null,
-        contentView: null,
+        currentView: null,
         filename: null,
         files: null
       },

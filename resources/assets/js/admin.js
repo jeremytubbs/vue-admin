@@ -12,21 +12,32 @@ router.on('/dashboard', function () {
   app.params.currentView = 'dashboard'
 })
 
-router.on('/new-content', function () {
+router.on('/content', function () {
+  app.currentView = 'content-index'
+  app.params.currentView = 'content-index'
+})
+
+router.on('/content/create', function () {
   app.currentView = 'content-create'
   app.params.currentView = 'content-create'
 })
 
 router.on('/content/:id', function (id) {
-  app.currentView = 'content-view'
+  app.currentView = 'content-show'
   app.params.contentId = id
-  app.params.currentView = 'content-view'
+  app.params.currentView = 'content-show'
 })
 
 router.on('/content/:id/settings', function (id) {
   app.currentView = 'content-settings'
   app.params.contentId = id
   app.params.currentView = 'content-settings'
+})
+
+router.on('/content/:id/:file/editor/', function (id, file) {
+  app.currentView = 'content-editor'
+  app.params.contentId = id
+  app.params.currentView = 'content-editor'
 })
 
 router.configure({

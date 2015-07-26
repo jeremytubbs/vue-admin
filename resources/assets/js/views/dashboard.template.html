@@ -1,29 +1,10 @@
 <navbar params="{{params}}"></navbar>
-<h1>Home</h1>
+<h1>Dashboard</h1>
 
 <div class="form-group">
-	<a href="#/new-content" class="btn btn-default">New Content</a>
+	<a href="#/content/create" class="btn btn-default">New Content</a>
 </div>
 
-<div v-show="! contents">
-	No Content
+<div class="form-group">
+	<a href="#/content" class="btn btn-default">List Content</a>
 </div>
-
-<div v-show="contents">
-	<div class="list-group">
-		<a href="#/content/{{id}}" class="list-group-item" v-repeat="contents">
-			<h4>{{ title }}</h4>
-			<span v-if="! published" class="badge">Unpublished</span>
-			<p v-if="published">
-				<span>Published {{ created_at | humanize }}</span>
-			</p>
-			<p v-if="! published">
-				<span>Created {{ created_at | humanize }}</span>
-			</p>
-		</a>
-	</div>
-</div>
-
-<pre>
-{{ contents | json 4 }}
-</pre>

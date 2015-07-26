@@ -7,7 +7,7 @@ module.exports = {
     return {
       params: {
         contentId: null,
-        contentView: null,
+        currentView: null,
         filename: null,
         files: null
       }
