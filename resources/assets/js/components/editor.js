@@ -25,9 +25,9 @@ module.exports = {
     this.getFile();
   },
 
-  watch: {
-    'params.contentId': 'getFile'
-  },
+  // watch: {
+  //   'params.contentId': 'getFile'
+  // },
 
   methods: {
     showPreview: function() {

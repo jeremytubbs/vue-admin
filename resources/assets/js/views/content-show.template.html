@@ -1,11 +1,11 @@
 <navbar params="{{params}}"></navbar>
 
-<h1 v-if="contents">{{ contents.content.template.name }} Content</h1>
-<a href="#/content/{{ params.contentId }}/settings">settings</a>
+<div v-show="!params.contents.response"><br>Loading...</div>
 
-<manager params="{{params}}"></manager>
-<!-- <editor params="{{params}}"></editor> -->
+<div v-show="params.contents.response">
+	<h1 v-if="params.contents.response">{{ params.contents.response.title }}</h1>
+	<a href="#/content/{{ params.contentId }}/settings">settings</a>
 
-<pre v-if="contents">
-{{ contents | json 4 }}
-</pre>
+	<manager v-if="params.contents.response" params="{{params}}"></manager>
+
+</div>

@@ -1,8 +1,6 @@
 module.exports = {
   template: require('./content-index.template.html'),
 
-  replace: true,
-
   props: ['params'],
 
   data: function () {

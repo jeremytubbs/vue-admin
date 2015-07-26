@@ -43,8 +43,8 @@ class AdminController extends Controller
     public function getContent($id)
     {
         $files = $this->disk->files($this->contentDir . $id);
-        $content = Content::with('template')->find($id);
-        return response()->json(compact('content', 'files'));
+        $response = Content::with('template')->find($id);
+        return response()->json(compact('response', 'files'));
     }
 
     public function postEditor(Request $request)

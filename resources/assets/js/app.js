@@ -4,11 +4,10 @@ module.exports = {
   data: {
     currentView: '',
     params: {
-      contentId: null,
-      currentView: null,
-      filename: null,
-      files: null,
-      file: null,
+      currentView: '',
+      contentId: '',
+      contents: '',
+      filename: ''
     }
   },
 
@@ -19,5 +18,29 @@ module.exports = {
     'content-show': require('./views/content-show'),
     'content-settings': require('./views/content-settings'),
     'content-editor': require('./views/content-editor')
+  },
+
+  watch: {
+    'params.contentId': 'fetchData'
+  },
+
+  // compiled: function () {
+  //   if (this.params.contentId.length) {
+  //     this.fetchData()
+  //   }
+  // },
+
+  methods: {
+    fetchData: function() {
+      if (this.params.contentId.length) {
+        this.$http.get('admin/api/content/'+this.params.contentId, function(contents) {
+          console.log(contents)
+          this.params.contents = contents
+        })
+      }
+      if (! this.params.contentId.length) {
+        this.params.contents = ''
+      }
+    }
   }
 }

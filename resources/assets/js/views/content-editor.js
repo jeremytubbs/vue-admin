@@ -3,4 +3,16 @@ module.exports = {
 
   replace: true,
 
+  data: function () {
+    return {
+      params: {
+        currentView: null,
+        contentId: null,
+        filename: null,
+        files: null
+      },
+      contents: '',
+    }
+  }
+
 }

@@ -8,7 +8,7 @@ module.exports = {
   data: function () {
     return {
       params: {
-        currentView: null
+        currentView: ''
       }
     }
   },

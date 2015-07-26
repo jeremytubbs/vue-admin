@@ -1,8 +1,8 @@
 <navbar params="{{params}}"></navbar>
 <h1>New Content</h1>
-<div v-if="!templates.length">Loading...</div>
+<div v-show="!templates.length">Loading...</div>
 
-<form method="POST" v-on="submit: submitContent" v-if="templates.length">
+<form method="POST" v-on="submit: submitContent" v-show="templates.length">
 	<div class="form-group">
 		<label>Title</label>
 		<input type="text" class="form-control" name="title" v-model="newContent.title" />

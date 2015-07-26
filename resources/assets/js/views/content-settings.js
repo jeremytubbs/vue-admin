@@ -5,8 +5,8 @@ module.exports = {
   data: function () {
     return {
       params: {
-      	contentId: null,
-        currentView: null
+        currentView: null,
+      	contentId: null
       }
     }
   },

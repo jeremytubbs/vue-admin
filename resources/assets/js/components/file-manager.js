@@ -1,4 +1,4 @@
-module.exports = {
+ module.exports = {
   template: require('./file-manager.template.html'),
 
   props: ['params'],
@@ -6,27 +6,29 @@ module.exports = {
   data: function () {
     return {
       params: {
+        currentView: null,
         contentId: null,
-        files: null
+        contents: null,
+        filename: null
       },
-      file: null
     }
   },
 
-  // ready: function() {
-  //   console.log(this.params.files)
-  //   console.log(this.params.contentId)
-  // },
-
-  watch: {
-    'params.files': 'showList'
+  filters: {
+    getFilename: function (value) {
+      value = value.split('/')
+      length = value.length - 1
+      return value[length]
+    },
+    getFileExt: function (value) {
+      value = value.split('/')
+      length = value.length - 1
+      value = value[length]
+      return value.split('.')[1]
+    },
   },
 
   methods: {
-    showList: function() {
-      console.log(this.params.files)
-    },
-
     submitFile: function(e) {
       e.preventDefault()
       var files = this.$$.upload.files
