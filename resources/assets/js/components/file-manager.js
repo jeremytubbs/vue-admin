@@ -20,11 +20,18 @@
       length = value.length - 1
       return value[length]
     },
-    getFileExt: function (value) {
+    getIcon: function (value) {
       value = value.split('/')
       length = value.length - 1
       value = value[length]
-      return value.split('.')[1]
+      switch(value.split('.')[1]) {
+        case 'md':
+          return 'markdown'
+        case 'json':
+          return 'settings'
+        default:
+          return 'file-code'
+      }
     },
   },
 

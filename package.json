@@ -10,6 +10,7 @@
     "laravel-elixir": "^3.0.1",
     "marked": "^0.3.3",
     "moment": "^2.10.3",
+    "octicons": "^2.2.0",
     "vue": "^0.12.6",
     "vue-resource": "^0.1.4"
   }

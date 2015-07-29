@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 	<div class="list-group">
 		<a href="#/content/{{params.contentId}}/{{ $value | getFilename }}/editor" class="list-group-item" v-repeat="params.contents.files">
-			{{ $value | getFileExt }} {{ $value | getFilename }}
+			<span class="octicon octicon-{{ $value | getIcon }}"></span> {{ $value | getFilename }}
 		</a>
 	</div>
 	<div class="panel-body" >

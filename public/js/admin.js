@@ -26108,11 +26108,18 @@ module.exports = {
       length = value.length - 1;
       return value[length];
     },
-    getFileExt: function getFileExt(value) {
+    getIcon: function getIcon(value) {
       value = value.split('/');
       length = value.length - 1;
       value = value[length];
-      return value.split('.')[1];
+      switch (value.split('.')[1]) {
+        case 'md':
+          return 'markdown';
+        case 'json':
+          return 'settings';
+        default:
+          return 'file-code';
+      }
     }
   },
 
@@ -26133,7 +26140,7 @@ module.exports = {
 };
 
 },{"./file-manager.template.html":89}],89:[function(require,module,exports){
-module.exports = '<div class="panel panel-default">\n	<div class="list-group">\n		<a href="#/content/{{params.contentId}}/{{ $value | getFilename }}/editor" class="list-group-item" v-repeat="params.contents.files">\n			{{ $value | getFileExt }} {{ $value | getFilename }}\n		</a>\n	</div>\n	<div class="panel-body" >\n		<form method="POST" v-on="submit: submitFile" enctype="multipart/form-data">\n			<div class="form-group">\n				<input v-el="upload" type="file" name="upload" id="upload" class="form-control" v-model="file" />\n			</div>\n			<div class="form-group">\n				<button class="btn btn-default">Upload</button>\n			</div>\n		</form>\n	</div>\n</div>\n\n<pre>\n{{ params | json 4 }}\n</pre>\n';
+module.exports = '<div class="panel panel-default">\n	<div class="list-group">\n		<a href="#/content/{{params.contentId}}/{{ $value | getFilename }}/editor" class="list-group-item" v-repeat="params.contents.files">\n			<span class="octicon octicon-{{ $value | getIcon }}"></span> {{ $value | getFilename }}\n		</a>\n	</div>\n	<div class="panel-body" >\n		<form method="POST" v-on="submit: submitFile" enctype="multipart/form-data">\n			<div class="form-group">\n				<input v-el="upload" type="file" name="upload" id="upload" class="form-control" v-model="file" />\n			</div>\n			<div class="form-group">\n				<button class="btn btn-default">Upload</button>\n			</div>\n		</form>\n	</div>\n</div>\n\n<pre>\n{{ params | json 4 }}\n</pre>\n';
 },{}],90:[function(require,module,exports){
 'use strict';
 
