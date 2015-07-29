@@ -44,9 +44,9 @@ module.exports = {
       e.preventDefault()
       var newContent = this.newContent;
       this.$http.post('admin/api/content', newContent, function (data, status, request) {
-        console.log(data)
+        window.location.href = '#/content/'+data
       }).error(function (data, status, request) {
-        console.log(data)
+        //console.log(data)
       })
     }
   }

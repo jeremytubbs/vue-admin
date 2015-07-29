@@ -24,17 +24,10 @@ module.exports = {
     'params.contentId': 'fetchData'
   },
 
-  // compiled: function () {
-  //   if (this.params.contentId.length) {
-  //     this.fetchData()
-  //   }
-  // },
-
   methods: {
     fetchData: function() {
       if (this.params.contentId.length) {
         this.$http.get('admin/api/content/'+this.params.contentId, function(contents) {
-          console.log(contents)
           this.params.contents = contents
         })
       }

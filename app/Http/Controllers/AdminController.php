@@ -25,6 +25,7 @@ class AdminController extends Controller
     public function postContent(Request $request)
     {
         $content = new Content();
+        $content->user_id = \Auth::user()->id;
         $content->slug = $request->input('title');
         $content->fill($request->all());
         $content->save();
@@ -38,6 +39,7 @@ class AdminController extends Controller
         \File::makeDirectory($contentDir, 755);
         $templateDir = base_path() . $this->templateDir . $template->slug;
         \File::copyDirectory($templateDir, $contentDir);
+        return response()->json($content->id, 200);
     }
 
     public function getContent($id)
