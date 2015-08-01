@@ -26,7 +26,7 @@ class Content extends Model
 
     public function setSlugAttribute($title)
     {
-        if($this->attributes['slug'] != str_slug($title)) {
+        if(! isset($this->attributes['slug']) || $this->attributes['slug'] != str_slug($title)) {
             $this->attributes['slug'] = make_slug('contents', $title);
         }
     }
