@@ -17,8 +17,10 @@ Route::group(['prefix' => 'admin/api', 'middleware' => ['jwt.auth', 'jwt.admin']
     Route::post('content', 'AdminController@postContent');
     // route used by content-view.js
     Route::get('content/{id}', 'AdminController@getContent');
+    // route used by content-settings.js
+    Route::put('content/{id}', 'AdminController@updateContent');
     // route used by editor.js
-    Route::post('content/{id}', 'AdminController@postEditor');
+    // Route::post('content/{id}', 'AdminController@postEditor');
     // route used by file-manager.js
     Route::post('upload/{id}', 'AdminController@postUpload');
 

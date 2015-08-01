@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -47,6 +48,22 @@ class AdminController extends Controller
         $files = $this->disk->files($this->contentDir . $id);
         $response = Content::with('template')->find($id);
         return response()->json(compact('response', 'files'));
+    }
+
+    public function updateContent(Request $request, $id)
+    {
+        $content = Content::find($id);
+        $content->fill($request->all());
+        $content->featured = $request->input('featured') ? 1 : 0;
+        $content->published = $request->input('published') ? 1 : 0;
+        $content->published_at = $request->input('published') ? Carbon::now() : null;
+        $content->save();
+        return response()->json($content->id, 200);
+    }
+
+    public function getEditor($id, $file)
+    {
+        //
     }
 
     public function postEditor(Request $request)

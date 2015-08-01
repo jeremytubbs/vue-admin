@@ -1,2 +1,57 @@
 <navbar params="{{params}}"></navbar>
-<h1>Content Settings</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <span class="h1">Content Settings</span>
+        <a class="pull-right btn btn-danger" href="#"><span class="octicon octicon-trashcan"></span></a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="PUT" v-on="submit: submitContent">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" v-model="params.contents.response.title" />
+            </div>
+            <div class="form-group">
+                <label>Slug</label>
+                <input type="text" class="form-control" name="slug" v-model="params.contents.response.slug" />
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3" v-model="params.contents.response.description"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Primary Image</label>
+                <select name="primary_image" class="form-control" v-model="newContent.primary_image">
+                    <option></option>
+                    <option v-repeat="params.contents.files" value="{{$value}}">
+                        {{ $value }}
+                    </option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="featured" v-model="params.contents.response.featured"> Featured
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="published" v-model="params.contents.response.published"> Published
+                </label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<pre>
+{{ newContent | json 4 }}
+</pre>
+
+<pre>
+{{ params | json 4 }}
+</pre>

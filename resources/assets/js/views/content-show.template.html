@@ -2,10 +2,16 @@
 
 <div v-show="!params.contents.response"><br>Loading...</div>
 
-<div v-show="params.contents.response">
-	<h1 v-if="params.contents.response">{{ params.contents.response.title }}</h1>
-	<a href="#/content/{{ params.contentId }}/settings">settings</a>
-
-	<manager v-if="params.contents.response" params="{{params}}"></manager>
-
+<div class="row" v-show="params.contents.response">
+	<div class="col-md-4">
+		<span class="h1" v-if="params.contents.response">{{ params.contents.response.title }}</span>
+		<a class="pull-right btn btn-default" href="#/content/{{ params.contentId }}/settings"><span class="octicon octicon-tools"></span></a>
+	</div>
 </div>
+
+<manager v-if="params.contents.response" params="{{params}}"></manager>
+
+
+<pre>
+{{ params | json 4 }}
+</pre>

@@ -26034,6 +26034,8 @@ module.exports = {
       if (this.params.contentId.length) {
         this.$http.get('admin/api/content/' + this.params.contentId, function (contents) {
           this.params.contents = contents;
+          this.params.contents.response.published = this.params.contents.response.published == 1 ? true : false;
+          this.params.contents.response.featured = this.params.contents.response.featured == 1 ? true : false;
         });
       }
       if (!this.params.contentId.length) {
@@ -26122,9 +26124,6 @@ module.exports = {
       return value[length];
     },
     getIcon: function getIcon(value) {
-      value = value.split('/');
-      length = value.length - 1;
-      value = value[length];
       switch (value.split('.')[1]) {
         case 'md':
           return 'markdown';
@@ -26153,7 +26152,7 @@ module.exports = {
 };
 
 },{"./file-manager.template.html":89}],89:[function(require,module,exports){
-module.exports = '<div class="panel panel-default">\n	<div class="list-group">\n		<a href="#/content/{{params.contentId}}/{{ $value | getFilename }}/editor" class="list-group-item" v-repeat="params.contents.files">\n			<span class="octicon octicon-{{ $value | getIcon }}"></span> {{ $value | getFilename }}\n		</a>\n	</div>\n	<div class="panel-body" >\n		<form method="POST" v-on="submit: submitFile" enctype="multipart/form-data">\n			<div class="form-group">\n				<input v-el="upload" type="file" name="upload" id="upload" class="form-control" v-model="file" />\n			</div>\n			<div class="form-group">\n				<button class="btn btn-default">Upload</button>\n			</div>\n		</form>\n	</div>\n</div>\n\n<pre>\n{{ params | json 4 }}\n</pre>\n';
+module.exports = '<div class="row">\n	<div class="col-md-4">\n		<div class="panel panel-default">\n			<div class="list-group">\n				<a href="#/content/{{params.contentId}}/{{ $value | getFilename }}/editor" class="list-group-item" v-repeat="params.contents.files">\n					<span class="octicon octicon-{{ $value | getIcon }}"></span> {{ $value | getFilename }}\n				</a>\n			</div>\n			<div class="panel-body" >\n				<form method="POST" v-on="submit: submitFile" enctype="multipart/form-data">\n					<div class="form-group">\n						<input v-el="upload" type="file" name="upload" id="upload" class="form-control" v-model="file" />\n					</div>\n					<div class="form-group">\n						<button class="btn btn-default">Upload</button>\n					</div>\n				</form>\n			</div>\n		</div>\n	</div>\n	<div class="col-md-8">\n\n	</div>\n</div>';
 },{}],90:[function(require,module,exports){
 'use strict';
 
@@ -26174,7 +26173,7 @@ module.exports = {
 };
 
 },{"./navbar.template.html":91}],91:[function(require,module,exports){
-module.exports = '<!-- Fixed navbar -->\n<nav class="navbar navbar-default navbar-fixed-top">\n  <div class="container">\n    <div class="navbar-header">\n      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">\n        <span class="sr-only">Toggle navigation</span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="navbar-brand" href="/">Radium</a>\n    </div>\n    <div id="navbar" class="navbar-collapse collapse">\n      <ul class="nav navbar-nav">\n        <li v-if="params.currentView != \'dashboard\'"><a href="#/dashboard">Dashboard</a></li>\n        <li v-if="params.currentView != \'content-create\'"><a href="#/content/create">New Content</a></li>\n      </ul>\n      <ul class="nav navbar-nav navbar-right">\n        <li><a href="/auth/logout">Logout</a></li>\n      </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n\n<style type="text/css">\nbody {\n  padding-top: 50px;\n}\n</style>';
+module.exports = '<!-- Fixed navbar -->\n<nav class="navbar navbar-default navbar-fixed-top">\n  <div class="container">\n    <div class="navbar-header">\n      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">\n        <span class="sr-only">Toggle navigation</span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n        <span class="icon-bar"></span>\n      </button>\n      <a class="navbar-brand" href="/">Radium</a>\n    </div>\n    <div id="navbar" class="navbar-collapse collapse">\n      <ul class="nav navbar-nav">\n        <li v-if="params.currentView != \'dashboard\'"><a href="#/dashboard">Dashboard</a></li>\n        <li v-if="params.currentView != \'content-create\'"><a href="#/content/create">New Content</a></li>\n      </ul>\n      <ul class="nav navbar-nav navbar-right">\n        <li><a href="/auth/logout">Logout</a></li>\n      </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n\n<style type="text/css">\nbody {\n  padding-top: 60px;\n}\n</style>';
 },{}],92:[function(require,module,exports){
 'use strict';
 
@@ -26315,19 +26314,48 @@ module.exports = {
   data: function data() {
     return {
       params: {
-        currentView: null,
-        contentId: null
+        currentView: '',
+        contentId: '',
+        contents: '',
+        filename: ''
+      },
+      newContent: {
+        title: '',
+        slug: '',
+        description: '',
+        primary_image: null,
+        featured: false,
+        published: false
       }
     };
   },
 
   components: {
     navbar: require('../components/navbar')
+  },
+
+  methods: {
+    submitContent: function submitContent(e) {
+      e.preventDefault();
+      // set new content
+      this.newContent.title = this.params.contents.response.title;
+      this.newContent.slug = this.params.contents.response.slug;
+      this.newContent.description = this.params.contents.response.description;
+      this.newContent.primary_image = this.params.contents.response.primary_image;
+      this.newContent.featured = this.params.contents.response.featured;
+      this.newContent.published = this.params.contents.response.published;
+
+      this.$http.put('admin/api/content/' + this.params.contentId, this.newContent, function (data, status, request) {
+        window.location.href = '#/content/' + data;
+      }).error(function (data, status, request) {
+        //console.log(data)
+      });
+    }
   }
 };
 
 },{"../components/navbar":90,"./content-settings.template.html":99}],99:[function(require,module,exports){
-module.exports = '<navbar params="{{params}}"></navbar>\n<h1>Content Settings</h1>\n';
+module.exports = '<navbar params="{{params}}"></navbar>\n\n<div class="row">\n    <div class="col-md-12">\n        <span class="h1">Content Settings</span>\n        <a class="pull-right btn btn-danger" href="#"><span class="octicon octicon-trashcan"></span></a>\n    </div>\n</div>\n\n<div class="row">\n    <div class="col-md-12">\n        <form method="PUT" v-on="submit: submitContent">\n            <div class="form-group">\n                <label>Title</label>\n                <input type="text" class="form-control" name="title" v-model="params.contents.response.title" />\n            </div>\n            <div class="form-group">\n                <label>Slug</label>\n                <input type="text" class="form-control" name="slug" v-model="params.contents.response.slug" />\n            </div>\n            <div class="form-group">\n                <label>Description</label>\n                <textarea name="description" class="form-control" rows="3" v-model="params.contents.response.description"></textarea>\n            </div>\n            <div class="form-group">\n                <label>Primary Image</label>\n                <select name="primary_image" class="form-control" v-model="newContent.primary_image">\n                    <option></option>\n                    <option v-repeat="params.contents.files" value="{{$value}}">\n                        {{ $value }}\n                    </option>\n                </select>\n            </div>\n            <div class="checkbox">\n                <label>\n                  <input type="checkbox" name="featured" v-model="params.contents.response.featured"> Featured\n                </label>\n            </div>\n            <div class="checkbox">\n                <label>\n                    <input type="checkbox" name="published" v-model="params.contents.response.published"> Published\n                </label>\n            </div>\n            <div class="form-group">\n                <button class="btn btn-default" type="submit">Update</button>\n            </div>\n        </form>\n    </div>\n</div>\n\n<pre>\n{{ newContent | json 4 }}\n</pre>\n\n<pre>\n{{ params | json 4 }}\n</pre>\n';
 },{}],100:[function(require,module,exports){
 'use strict';
 
@@ -26356,7 +26384,7 @@ module.exports = {
 };
 
 },{"../components/file-manager":88,"../components/navbar":90,"./content-show.template.html":101}],101:[function(require,module,exports){
-module.exports = '<navbar params="{{params}}"></navbar>\n\n<div v-show="!params.contents.response"><br>Loading...</div>\n\n<div v-show="params.contents.response">\n	<h1 v-if="params.contents.response">{{ params.contents.response.title }}</h1>\n	<a href="#/content/{{ params.contentId }}/settings">settings</a>\n\n	<manager v-if="params.contents.response" params="{{params}}"></manager>\n\n</div>\n';
+module.exports = '<navbar params="{{params}}"></navbar>\n\n<div v-show="!params.contents.response"><br>Loading...</div>\n\n<div class="row" v-show="params.contents.response">\n	<div class="col-md-4">\n		<span class="h1" v-if="params.contents.response">{{ params.contents.response.title }}</span>\n		<a class="pull-right btn btn-default" href="#/content/{{ params.contentId }}/settings"><span class="octicon octicon-tools"></span></a>\n	</div>\n</div>\n\n<manager v-if="params.contents.response" params="{{params}}"></manager>\n\n\n<pre>\n{{ params | json 4 }}\n</pre>\n';
 },{}],102:[function(require,module,exports){
 'use strict';
 

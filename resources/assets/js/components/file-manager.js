@@ -21,9 +21,6 @@
       return value[length]
     },
     getIcon: function (value) {
-      value = value.split('/')
-      length = value.length - 1
-      value = value[length]
       switch(value.split('.')[1]) {
         case 'md':
           return 'markdown'

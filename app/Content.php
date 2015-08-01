@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     protected $guarded = [];
-    protected $dates = ['published_at'];
+    protected $dates = ['created_at', 'updated_at', 'published_at'];
 
     public function user()
     {

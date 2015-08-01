@@ -25,7 +25,7 @@ class CreateContentsTable extends Migration
             $table->string('primary_image')->nullable();
             $table->boolean('featured')->default(0);
             $table->boolean('published')->default(0);
-            $table->boolean('published_at')->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
