@@ -26346,7 +26346,10 @@ module.exports = {
       this.newContent.published = this.params.contents.response.published;
 
       this.$http.put('admin/api/content/' + this.params.contentId, this.newContent, function (data, status, request) {
-        window.location.href = '#/content/' + data;
+        this.params.contents = data;
+        this.params.contents.response.published = this.params.contents.response.published == 1 ? true : false;
+        this.params.contents.response.featured = this.params.contents.response.featured == 1 ? true : false;
+        window.location.href = '#/content/' + this.params.contentId;
       }).error(function (data, status, request) {
         //console.log(data)
       });

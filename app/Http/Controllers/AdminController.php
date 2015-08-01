@@ -58,7 +58,9 @@ class AdminController extends Controller
         $content->published = $request->input('published') ? 1 : 0;
         $content->published_at = $request->input('published') ? Carbon::now() : null;
         $content->save();
-        return response()->json($content->id, 200);
+        $files = $this->disk->files($this->contentDir . $id);
+        $response = $content;
+        return response()->json(compact('response', 'files'));
     }
 
     public function getEditor($id, $file)
